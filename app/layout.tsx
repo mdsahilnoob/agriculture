@@ -101,13 +101,13 @@ export default function RootLayout({
             {/* Removed secondary mobile nav (duplication) - MobileNav component handles mobile links */}
           </header>
           <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-            <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            {/* <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange> */}
               <main id="main-content" className="min-h-screen">
                 {children}
               </main>
               <AIChatWidget />
               <Toaster />
-            </ThemeProvider>
+            {/* </ThemeProvider> */}
           </Suspense>
         </SessionProviderWrapper>
         <Analytics />
