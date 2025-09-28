@@ -1,4 +1,6 @@
+//there is an error here
 import { type NextRequest, NextResponse } from "next/server"
+export const dynamic = 'force-dynamic' // Ensure the route is always dynamic
 
 // Mock user data - in production, this would connect to a database
 const mockUsers = new Map([
