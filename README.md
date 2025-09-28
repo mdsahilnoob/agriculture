@@ -1,7 +1,7 @@
 <div align="center">
-   <img src="public/placeholder-logo.png" alt="FarmGrow" height="82" />
-   <h1>FarmGrow – Gamified Sustainable Farming Platform</h1>
-   <p><strong>Empowering farmers with sustainable practices through missions, community, rewards, quizzes, and AI assistance.</strong></p>
+   <!-- <img src="public/placeholder-logo.png" alt="FarmGrow" height="82" /> -->
+   <h1>Gamified Sustainable Farming Platform</h1>
+   <p><strong>Teaching farmers with sustainable practices through missions, community, rewards, quizzes, and AI assistance.</strong></p>
    <p>
       <a href="#overview">Overview</a> •
       <a href="#features">Features</a> •
@@ -16,7 +16,7 @@
 ---
 
 ## Overview
-FarmGrow motivates farmers to adopt sustainable, Climate‑smart practices through structured missions, quizzes, community interaction, and an AI agronomy assistant. The current build is an MVP optimized for rapid iteration, accessibility, and extensibility.
+Our Platform motivates farmers to adopt sustainable, climate‑smart practices through structured missions, quizzes, community interaction, and an AI agronomy assistant. The current build is an MVP optimized for rapid iteration, accessibility, and extensibility.
 
 ## <a id="features"></a>Core Features
 
@@ -89,7 +89,7 @@ Stored under keys: `feedbackItems`, `quizScores` in `localStorage`.
 
 ## <a id="getting-started"></a>Getting Started
 
-1. Clone: `git clone git@github.com:aryanb1906/SIH.git` & `cd SIH`
+1. Clone: `git clone https://github.com/mdsahilnoob/agriculture.git` & `cd agriculture`
 2. Copy `.env.example` → `.env.local`
 3. Fill in the required environment variables
 4. Install dependencies:
