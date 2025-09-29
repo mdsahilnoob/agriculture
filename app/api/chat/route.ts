@@ -50,8 +50,8 @@ Provide actionable advice with specific steps when possible.`
     const response = await result.response
     const text = response.text()
 
-    const enhancedResponse =
-     text + "\n\n💡 Tip: Complete related missions in FarmGrow to earn coins and unlock more farming resources!"
+    // const enhancedResponse =
+    //  text + "\n\n💡 Tip: Complete related missions in FarmGrow to earn coins and unlock more farming resources!"
 
     return NextResponse.json({
       message: text, // message: enhancedResponse,

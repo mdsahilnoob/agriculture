@@ -2,6 +2,18 @@ import { type NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../../../auth/[...nextauth]/route"
 
+// Extend the session user type to include 'id'
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string
+      name?: string | null
+      email?: string | null
+      image?: string | null
+    }
+  }
+}
+
 // In-memory storage for comments - replace with database in production
 const comments: { [postId: number]: any[] } = {}
 let nextCommentId = 1

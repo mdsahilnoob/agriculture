@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../../auth/[...nextauth]/route"
 
 // In-memory storage for demo purposes - replace with database in production
-const posts: any[] = [
+const posts = [ //: any[] was here
   {
     id: 1,
     author: "Priya Sharma",
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
       likes: 0,
       comments: 0,
       badge: "New Farmer", // Default badge - could be dynamic based on user achievements
-      userId: session.user.id,
+      userId: (session.user as { id?: string }).id || "unknown-user",
       createdAt: new Date().toISOString(),
     }
 

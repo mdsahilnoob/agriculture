@@ -111,7 +111,7 @@ const mockAnalytics: DashboardAnalytics = {
 
 export async function GET(req: NextRequest) {
   try {
-    const userId = req.nextUrl.searchParams.get("userId") || "user123"
+    // const userId = req.nextUrl.searchParams.get("userId") || "user123"
     const timeframe = req.nextUrl.searchParams.get("timeframe") || "week" // week, month, year
 
     // In production, this would fetch real data from database
@@ -121,7 +121,7 @@ export async function GET(req: NextRequest) {
 
     if (timeframe === "month") {
       analytics.coinsThisWeek = analytics.coinsThisMonth
-      analytics.weeklyActivity = analytics.weeklyActivity.map((day, index) => ({
+      analytics.weeklyActivity = analytics.weeklyActivity.map((day) => ({ //(day, index) was here
         ...day,
         coins: day.coins + Math.floor(Math.random() * 50),
         missions: day.missions + Math.floor(Math.random() * 2),

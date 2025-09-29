@@ -6,7 +6,7 @@ import { authOptions } from "../../../../auth/[...nextauth]/route"
 const userLikes: { [userId: string]: number[] } = {}
 
 // Import posts from the main posts route (in production, use database)
-const posts: any[] = []
+const posts: any = []
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -29,7 +29,13 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     }
 
     // Find the post (in production, query database)
-    const postIndex = posts.findIndex((p) => p.id === postId)
+    interface Post {
+      id: number
+      likes: number
+      // Add other post properties if needed
+    }
+
+    const postIndex: number = (posts as Post[]).findIndex((p: Post) => p.id === postId)
     if (postIndex === -1) {
       return NextResponse.json({ success: false, error: "Post not found" }, { status: 404 })
     }
