@@ -43,8 +43,13 @@ export function FeedbackForm() {
             <CardContent>
                 <form onSubmit={onSubmit} className="space-y-4">
                     <div>
-                        <label className="block mb-1 text-sm font-medium">Type</label>
-                        <select value={type} onChange={e => setType(e.target.value as any)} className="border rounded px-3 py-2 w-full">
+                        <label htmlFor="feedback-type" className="block mb-1 text-sm font-medium">Type</label>
+                        <select
+                            id="feedback-type"
+                            value={type}
+                            onChange={e => setType(e.target.value as any)}
+                            className="border rounded px-3 py-2 w-full"
+                        >
                             <option value="feature">Feature Suggestion</option>
                             <option value="bug">Bug Report</option>
                         </select>

@@ -54,14 +54,27 @@ export default function CropCalculatorPage() {
                     <CardContent>
                         <form className="space-y-4" onSubmit={e => { e.preventDefault(); handleCalculate() }}>
                             <div>
-                                <label className="block mb-1 font-medium">Select Crop</label>
-                                <select value={crop} onChange={e => setCrop(e.target.value as keyof typeof cropData)} className="w-full border rounded p-2">
+                                <label htmlFor="crop-select" className="block mb-1 font-medium">Select Crop</label>
+                                <select
+                                    id="crop-select"
+                                    value={crop}
+                                    onChange={e => setCrop(e.target.value as keyof typeof cropData)}
+                                    className="w-full border rounded p-2"
+                                >
                                     {Object.keys(cropData).map(c => <option key={c} value={c}>{c}</option>)}
                                 </select>
                             </div>
                             <div>
                                 <label className="block mb-1 font-medium">Land Area (acres)</label>
-                                <input type="number" min={1} value={acres} onChange={e => setAcres(Number(e.target.value))} className="w-full border rounded p-2" />
+                                <input
+                                    type="number"
+                                    min={1}
+                                    value={acres}
+                                    onChange={e => setAcres(Number(e.target.value))}
+                                    className="w-full border rounded p-2"
+                                    placeholder="Enter land area in acres"
+                                    title="Land Area (acres)"
+                                />
                             </div>
                             <Button type="button" variant="outline" className="w-full" onClick={() => setShowAdvanced(v => !v)}>
                                 <BarChart2 className="h-4 w-4 mr-2" /> {showAdvanced ? "Hide" : "Show"} Advanced Options

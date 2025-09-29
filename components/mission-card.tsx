@@ -134,18 +134,25 @@ export function MissionCard({
               </div>
               <Progress value={progress} className="h-2 mb-2" />
               {!isCompleted && (
-                <input
-                  type="range"
-                  min={progress}
-                  max={100}
-                  value={progress}
-                  step={5}
-                  onChange={e => {
-                    const val = Number(e.target.value)
-                    if (val > progress && onUpdateProgress) onUpdateProgress(id, val - progress)
-                  }}
-                  className="w-full"
-                />
+                <div>
+                  <label htmlFor={`progress-range-${id}`} className="sr-only">
+                    Update progress
+                  </label>
+                  <input
+                    id={`progress-range-${id}`}
+                    type="range"
+                    min={progress}
+                    max={100}
+                    value={progress}
+                    step={5}
+                    title="Update progress"
+                    onChange={e => {
+                      const val = Number(e.target.value)
+                      if (val > progress && onUpdateProgress) onUpdateProgress(id, val - progress)
+                    }}
+                    className="w-full"
+                  />
+                </div>
               )}
             </div>
             <div className="flex gap-2">

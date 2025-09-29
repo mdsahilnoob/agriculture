@@ -29,7 +29,6 @@ interface Message {
   id: string
   content: string
   sender: "user" | "ai"
-  timestamp: Date
 }
 
 const quickQuestions = [
@@ -51,15 +50,9 @@ export default function SupportPage() {
       id: "1",
       content:
         "🌱 Namaste! I'm FarmGrow AI, your farming assistant. I specialize in sustainable agriculture, crop management, pest control, and government schemes. Ask me anything about farming practices!",
-      sender: "ai",
-      timestamp: new Date("2025-09-13T00:00:00Z"),
+      sender: "ai"
     },
   ])
-
-  // On mount, reset the timestamp for SSR
-  useEffect(() => {
-    setMessages((msgs) => msgs.map((msg, i) => (i === 0 ? { ...msg, timestamp: new Date() } : msg)))
-  }, [])
 
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -79,8 +72,7 @@ export default function SupportPage() {
     const userMessage: Message = {
       id: Date.now().toString(),
       content: messageText,
-      sender: "user",
-      timestamp: new Date(),
+      sender: "user"
     }
 
     setMessages((prev) => [...prev, userMessage])
@@ -104,8 +96,7 @@ export default function SupportPage() {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: data.message,
-        sender: "ai",
-        timestamp: new Date(),
+        sender: "ai"
       }
       setMessages((prev) => [...prev, aiMessage])
     } catch {
@@ -113,8 +104,7 @@ export default function SupportPage() {
         id: (Date.now() + 1).toString(),
         content:
           "🚨 Sorry, I'm having trouble connecting right now. Please try again later or check your internet connection.",
-        sender: "ai",
-        timestamp: new Date(),
+        sender: "ai"
       }
       setMessages((prev) => [...prev, errorMessage])
     } finally {
@@ -151,10 +141,10 @@ export default function SupportPage() {
           icon={
             <div className="relative">
               <Bot className="h-8 w-8 text-blue-500" />
-              <Sparkles className="h-4 w-4 text-blue-400 absolute -top-1 -right-1 animate-pulse" />
+              <Sparkles className="h-4 w-4 text-blue-400 absolute -top-1 -right-1" />
             </div>
           }
-          backHref="/"
+          // backHref="/"
           actions={
             <Badge className="bg-blue-50 text-blue-600 border border-blue-200 flex items-center gap-1">
               <Coins className="h-3 w-3" />
@@ -240,7 +230,6 @@ export default function SupportPage() {
                         message.sender === "user" ? "text-blue-200" : "text-gray-500"
                       }`}
                     >
-                      {message.timestamp.toLocaleTimeString()}
                     </p>
                   </div>
                   {message.sender === "user" && (
