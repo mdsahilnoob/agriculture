@@ -622,7 +622,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 FarmGrow. Empowering sustainable agriculture through technology.</p>
+            <p>&copy; 2025 FarmGrow. Empowering sustainable agriculture through technology.</p>
           </div>
         </Container>
       </footer>

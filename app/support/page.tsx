@@ -190,7 +190,7 @@ export default function SupportPage() {
                 FarmGrow AI Assistant
                 <Badge className="ml-auto bg-blue-100 text-blue-700 font-medium border border-blue-200">
                   <div className="flex items-center gap-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     Online
                   </div>
                 </Badge>
