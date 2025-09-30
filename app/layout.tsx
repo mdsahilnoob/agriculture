@@ -1,14 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import AIChatWidget from "@/components/ai-chat-widget"
 import SessionHeader from "@/components/session-header"
 import MobileNav from "@/components/mobile-nav"
 import { Container } from "@/components/container"
-import { ThemeProvider } from "next-themes"
+// import { ThemeProvider } from "next-themes"
 import { Suspense } from "react"
 import { Toaster } from "@/components/ui/toaster"
 import SessionProviderWrapper from "@/components/session-provider"
@@ -61,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+    <html lang="en" className='antialiased'>
       <body className="min-h-screen bg-background text-foreground">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 z-50 bg-primary text-primary-foreground px-3 py-2 rounded">Skip to main</a>
         <SessionProviderWrapper>

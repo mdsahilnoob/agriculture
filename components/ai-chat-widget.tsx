@@ -56,22 +56,21 @@ export default function AIChatWidget() {
   if (!isOpen) {
     return (
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 group">
-        <div className="absolute -top-12 right-0 opacity-0 group-hover:opacity-100 transition text-xs bg-primary text-primary-foreground px-3 py-2 rounded-lg shadow-lg">
+        {/* <div className="absolute -top-12 right-0 opacity-0 group-hover:opacity-100 transition text-xs bg-primary text-primary-foreground px-3 py-2 rounded-lg shadow-lg">
           <div className="flex items-center gap-1">
             <Bot className="h-3 w-3" />
-            Ask FarmGrow AI
+            AI
         </div>
-      </div>
+      </div> */}
       <Button
         ref={openBtnRef}
         aria-label="Open FarmGrow AI chat"
         onClick={() => setIsOpen(true)}
-        className="h-16 w-16 rounded-full bg-primary hover:bg-primary/90 shadow-xl relative overflow-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary animate-pulse"
+        className="h-16 w-16 rounded-full bg-primary hover:bg-primary/90 shadow-xl relative overflow-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
       >
           <span className="absolute inset-0 bg-gradient-to-tr from-primary/40 to-secondary/40 opacity-0 group-hover:opacity-100 transition" />
           <div className="relative flex flex-col items-center">
             <Bot className="h-6 w-6" />
-            <Sparkles className="h-3 w-3 text-secondary absolute -top-1 -right-1" />
           </div>
         </Button>
       </div>
