@@ -224,7 +224,7 @@ export default function FAQPage() {
                 <Link href="/support">
                   <Button className="w-full sm:w-auto">
                     <MessageCircle className="mr-2 h-4 w-4" />
-                    Chat with AI Support
+                    Chat with AI
                   </Button>
                 </Link>
                 <Link href="/community">
