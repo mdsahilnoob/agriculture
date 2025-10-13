@@ -4,19 +4,18 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-// Sample soil data
 type SoilData = {
   id: string;
   location: string;
   type: string;
   pH: number;
-  organicMatter: number; // percentage
-  nitrogen: number; // kg/ha
-  phosphorus: number; // kg/ha
-  potassium: number; // kg/ha
+  organicMatter: number;
+  nitrogen: number;
+  phosphorus: number; 
+  potassium: number; 
   texture: string;
   waterHoldingCapacity: 'low' | 'medium' | 'high';
-  lastTestedDate: string; // ISO string
+  lastTestedDate: string;
 };
 
 export function SoilTab({
@@ -30,7 +29,6 @@ export function SoilTab({
   sortBy: string;
   sortOrder: "asc" | "desc";
 }) {
-  // Filter and sort soil data
   const filteredSoilData = soilData
     .filter(soil => 
       soil.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -50,7 +48,6 @@ export function SoilTab({
     
   return (
     <>
-      {/* Soil Data Table */}
       <div className="border rounded-md overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -99,7 +96,6 @@ export function SoilTab({
         )}
       </div>
       
-      {/* Placeholder text for soil recommendations */}
       <Card className="mt-6 p-4 bg-muted/50">
         <h3 className="text-lg font-medium mb-2">Soil Health Recommendations</h3>
         <p className="text-muted-foreground">
