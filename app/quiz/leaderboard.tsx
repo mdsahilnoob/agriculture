@@ -1,3 +1,5 @@
+// error here, have to use socket.io
+
 "use client"
 import { useEffect, useState } from "react"
 import { Container } from "@/components/container"
