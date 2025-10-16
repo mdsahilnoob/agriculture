@@ -34,3 +34,9 @@
 
 ---
 For further changes, update this file to keep design rules in sync.
+
+
+Need to add jest,
+prettier, 
+ci/cd pipelines, 
+eslinting
