@@ -94,7 +94,7 @@ export default function MobileNav({ currentPath }: MobileNavProps) {
 
   const closeNav = () => setIsOpen(false)
 
-  // Defensive: show loading spinner if session is loading
+  // dont need 
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -103,7 +103,7 @@ export default function MobileNav({ currentPath }: MobileNavProps) {
     )
   }
 
-  // If demo session is authenticated, show demo user info
+  // fix needed here
   const activeUser = session?.user || (isDemoAuthenticated ? demoUser : null)
 
   return (
