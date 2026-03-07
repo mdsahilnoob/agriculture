@@ -100,6 +100,17 @@ export default function ActivityPage() {
     });
   }, []);
 
+  const getTimeframeFilteredActivities = (list: ActivityEntry[]) => {
+    if (timeframe === "all") return list;
+    
+    const today = new Date();
+    const timeframeDate = timeframe === "today" ? today : 
+                          timeframe === "week" ? subDays(today, 7) : 
+                          subDays(today, 30);
+                          
+    return list.filter(activity => new Date(activity.ts) >= timeframeDate);
+  };
+
   const filteredActivities = getTimeframeFilteredActivities(activities)
     .filter(activity => 
       activity.message.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -127,17 +138,6 @@ export default function ActivityPage() {
   }, {});
 
   const availableTypes = Object.keys(activityTypes);
-  
-  const getTimeframeFilteredActivities = (activities: ActivityEntry[]) => {
-    if (timeframe === "all") return activities;
-    
-    const today = new Date();
-    const timeframeDate = timeframe === "today" ? today : 
-                          timeframe === "week" ? subDays(today, 7) : 
-                          subDays(today, 30);
-                          
-    return activities.filter(activity => new Date(activity.ts) >= timeframeDate);
-  };
   
   const activityTrends = useMemo(() => {
     const today = new Date();
