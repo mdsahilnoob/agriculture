@@ -1,6 +1,5 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import AIChatWidget from "@/components/ai-chat-widget"
 import MobileNav from "@/components/mobile-nav"
@@ -94,7 +93,6 @@ export default function RootLayout({
               <Toaster />
             {/* </ThemeProvider> */}
           </Suspense>
-        <Analytics />
         <script
           dangerouslySetInnerHTML={{
             __html: `
