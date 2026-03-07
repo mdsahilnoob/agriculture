@@ -13,6 +13,7 @@ interface LeaderboardEntry {
   rank: number
   avatar?: string
 }
+//fix
 
 const leaderboardData: Omit<LeaderboardEntry, "rank">[] = [
   {
