@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-// Types
 export interface User {
   id: string
   name: string
@@ -117,86 +116,67 @@ export interface MarketplaceItem {
   discount?: number
 }
 
-// Cart item extends a marketplace item with quantity
 export interface CartItem extends MarketplaceItem {
   quantity: number
 }
 
-// Store interface
 interface AppState {
-  // User state
   user: User | null
   isAuthenticated: boolean
 
-  // Missions state
   missions: Mission[]
   completedMissions: string[]
   currentMission: Mission | null
 
-  // Blog state
   blogPosts: BlogPost[]
   featuredPosts: BlogPost[]
 
-  // Notifications
   notifications: Notification[]
   unreadCount: number
 
-  // Weather
   weather: WeatherData | null
 
-  // Community
   communityPosts: CommunityPost[]
 
-  // Marketplace
   marketplaceItems: MarketplaceItem[]
   cart: CartItem[]
 
-  // UI state
   sidebarOpen: boolean
   theme: 'light' | 'dark' | 'system'
 
-  // Actions
   setUser: (user: User | null) => void
   updateUserXP: (xp: number) => void
   updateUserPoints: (points: number) => void
 
-  // Mission actions
   loadMissions: () => void
   startMission: (missionId: string) => void
   completeMissionStep: (missionId: string, stepId: string) => void
   completeMission: (missionId: string) => void
 
-  // Blog actions
   loadBlogPosts: () => void
   incrementBlogViews: (postId: string) => void
   likeBlogPost: (postId: string) => void
 
-  // Notification actions
   addNotification: (notification: Omit<Notification, 'id' | 'createdAt'>) => void
   markNotificationAsRead: (notificationId: string) => void
   clearAllNotifications: () => void
 
-  // Weather actions
   setWeather: (weather: WeatherData) => void
 
-  // Community actions
   loadCommunityPosts: () => void
   likePost: (postId: string) => void
   addCommunityPost: (post: Omit<CommunityPost, 'id' | 'createdAt' | 'isLiked'>) => void
 
-  // Marketplace actions
   loadMarketplaceItems: () => void
   addToCart: (item: MarketplaceItem, quantity?: number) => void
   updateCartItemQuantity: (itemId: string, quantity: number) => void
   removeFromCart: (itemId: string) => void
   clearCart: () => void
 
-  // UI actions
   setSidebarOpen: (open: boolean) => void
   setTheme: (theme: 'light' | 'dark' | 'system') => void
 }
 
-// Mock data generators
 const generateMockMissions = (): Mission[] => [
   {
     id: '1',
@@ -401,11 +381,9 @@ const generateMockMarketplaceItems = (): MarketplaceItem[] => [
   }
 ]
 
-// Create the store
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
-      // Initial state
       user: null,
       isAuthenticated: false,
       missions: [],
@@ -422,7 +400,6 @@ export const useAppStore = create<AppState>()(
       sidebarOpen: false,
       theme: 'system',
 
-      // User actions
       setUser: (user) => set({ user, isAuthenticated: !!user }),
       updateUserXP: (xp) => set((state) => ({
         user: state.user ? { ...state.user, xp: state.user.xp + xp } : null
@@ -431,7 +408,6 @@ export const useAppStore = create<AppState>()(
         user: state.user ? { ...state.user, points: state.user.points + points } : null
       })),
 
-      // Mission actions
       loadMissions: () => set({ missions: generateMockMissions() }),
       startMission: (missionId) => {
         const mission = get().missions.find(m => m.id === missionId)
@@ -465,11 +441,9 @@ export const useAppStore = create<AppState>()(
             currentMission: state.currentMission?.id === missionId ? null : state.currentMission
           }))
 
-          // Award XP and points
           get().updateUserXP(mission.xpReward)
           get().updateUserPoints(mission.pointsReward)
 
-          // Add notification
           get().addNotification({
             title: 'Mission Completed!',
             message: `Congratulations! You completed "${mission.title}" and earned ${mission.xpReward} XP and ${mission.pointsReward} points.`,
@@ -480,7 +454,6 @@ export const useAppStore = create<AppState>()(
         }
       },
 
-      // Blog actions
       loadBlogPosts: () => set({ blogPosts: generateMockBlogPosts(), featuredPosts: generateMockBlogPosts().slice(0, 3) }),
       incrementBlogViews: (postId) => {
         set((state) => ({
@@ -497,7 +470,6 @@ export const useAppStore = create<AppState>()(
         }))
       },
 
-      // Notification actions
       addNotification: (notification) => {
         const newNotification: Notification = {
           ...notification,
@@ -521,10 +493,8 @@ export const useAppStore = create<AppState>()(
       },
       clearAllNotifications: () => set({ notifications: [], unreadCount: 0 }),
 
-      // Weather actions
       setWeather: (weather) => set({ weather }),
 
-      // Community actions
       loadCommunityPosts: () => set({ communityPosts: [] }),
       likePost: (postId) => {
         set((state) => ({
@@ -547,7 +517,6 @@ export const useAppStore = create<AppState>()(
         }))
       },
 
-      // Marketplace actions
       loadMarketplaceItems: () => set({ marketplaceItems: generateMockMarketplaceItems() }),
       addToCart: (item, quantity = 1) => {
         set((state) => {
@@ -581,7 +550,6 @@ export const useAppStore = create<AppState>()(
       },
       clearCart: () => set({ cart: [] }),
 
-      // UI actions
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
       setTheme: (theme) => set({ theme })
     }),
@@ -590,7 +558,6 @@ export const useAppStore = create<AppState>()(
       version: 2,
       migrate: (persistedState: any, version) => {
         if (!persistedState) return persistedState
-        // v1 -> v2: ensure cart items have quantity
         if (version < 2 && Array.isArray(persistedState.cart)) {
           persistedState.cart = persistedState.cart.map((it: any) => ({
             ...it,

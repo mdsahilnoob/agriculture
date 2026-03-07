@@ -36,7 +36,6 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
-// Icons for different activity types
 const activityIcons: Record<string, JSX.Element> = {
   mission: <Badge variant="default" className="bg-green-500">Mission</Badge>,
   quiz: <Badge variant="default" className="bg-blue-500">Quiz</Badge>,
@@ -51,13 +50,11 @@ const activityIcons: Record<string, JSX.Element> = {
   default: <Badge variant="default" className="bg-gray-500">Action</Badge>
 };
 
-// Date formatter helper
 const formatDate = (timestamp: number) => {
   const date = new Date(timestamp);
   return format(date, 'PPP p'); // Format: Apr 29, 2025, 3:00 PM
 };
 
-// Sample activity data for demo (you can remove this in production)
 const sampleActivities: ActivityEntry[] = [
   { id: "1", type: "mission", message: "Completed Water Conservation Mission", payload: { points: 50, badges: ["water_saver"] }, ts: Date.now() - 5000 },
   { id: "2", type: "quiz", message: "Scored 8/10 on Sustainable Farming Quiz", payload: { score: 8, total: 10 }, ts: Date.now() - 3600000 },
@@ -72,7 +69,6 @@ const sampleActivities: ActivityEntry[] = [
 ]
 
 export default function ActivityPage() {
-  // Get real activity data (fallback to sample if empty)
   const [activities, setActivities] = useState<ActivityEntry[]>([]);
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -83,10 +79,8 @@ export default function ActivityPage() {
   const [viewType, setViewType] = useState<"list" | "compact" | "detailed">("list");
 
   useEffect(() => {
-    // Get actual activity data
     const realActivities = getActivityLog();
     
-    // If no real activities, use sample data and record them for demo
     if (realActivities.length === 0) {
       sampleActivities.forEach(activity => {
         recordActivity({
@@ -100,14 +94,12 @@ export default function ActivityPage() {
       setActivities(realActivities);
     }
     
-    // Record this page visit
     recordActivity({
       type: "navigation",
       message: "Viewed Activity Log"
     });
   }, []);
 
-  // Filter activities based on search, type, date range, and timeframe
   const filteredActivities = getTimeframeFilteredActivities(activities)
     .filter(activity => 
       activity.message.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -125,21 +117,17 @@ export default function ActivityPage() {
       return activityDate >= dateRange.from;
     });
 
-  // Sort activities
   const sortedActivities = [...filteredActivities].sort((a, b) => 
     sortBy === "newest" ? b.ts - a.ts : a.ts - b.ts
   );
 
-  // Get activity stats
   const activityTypes = activities.reduce<Record<string, number>>((acc, activity) => {
     acc[activity.type] = (acc[activity.type] || 0) + 1;
     return acc;
   }, {});
 
-  // Available activity types from data
   const availableTypes = Object.keys(activityTypes);
   
-  // Filter activities by timeframe
   const getTimeframeFilteredActivities = (activities: ActivityEntry[]) => {
     if (timeframe === "all") return activities;
     
@@ -151,7 +139,6 @@ export default function ActivityPage() {
     return activities.filter(activity => new Date(activity.ts) >= timeframeDate);
   };
   
-  // Calculate activity trends
   const activityTrends = useMemo(() => {
     const today = new Date();
     
@@ -174,7 +161,6 @@ export default function ActivityPage() {
     return last7Days;
   }, [activities]);
 
-  // Function to handle filter changes
   const handleTypeToggle = (type: string) => {
     setSelectedTypes(prev => 
       prev.includes(type) 
@@ -183,14 +169,12 @@ export default function ActivityPage() {
     );
   };
 
-  // Function to clear filters
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedTypes([]);
     setDateRange({ from: undefined, to: undefined });
   };
 
-  // Function to export activities as JSON
   const exportActivities = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sortedActivities, null, 2));
     const downloadAnchorNode = document.createElement('a');
@@ -206,9 +190,7 @@ export default function ActivityPage() {
     });
   };
   
-  // Function to share activity data
   const shareActivities = () => {
-    // This would be implemented with your actual sharing mechanism
     toast({
       title: "Sharing",
       description: "Sharing functionality will be implemented soon"
@@ -858,7 +840,7 @@ export default function ActivityPage() {
                 <div className="flex items-center justify-center my-6 ml-6">
                   <div className="absolute w-3 h-3 rounded-full bg-muted-foreground -left-[7px] border border-background"></div>
                   <Card className="px-4 py-2 text-center text-sm text-muted-foreground">
-                    End of timeline • {sortedActivities.length} {sortedActivities.length === 1 ? 'activity' : 'activities'} total
+                    End of timeline â€¢ {sortedActivities.length} {sortedActivities.length === 1 ? 'activity' : 'activities'} total
                   </Card>
                 </div>
               </div>

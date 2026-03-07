@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-// In-memory storage for demo purposes - replace with database in production
 const posts = [ //: any[] was here
   {
     id: 1,
@@ -51,7 +50,6 @@ let nextId = 4
 
 export async function GET(request: NextRequest) {
   try {
-    // Sort posts by creation date (newest first)
     const sortedPosts = posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
     return NextResponse.json({
@@ -73,7 +71,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: "Content is required" }, { status: 400 })
     }
 
-    // Create new post
     const newPost = {
       id: nextId++,
       author: "Anonymous Farmer",

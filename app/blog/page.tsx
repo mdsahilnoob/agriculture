@@ -21,7 +21,6 @@ export default function BlogIndexPage() {
     const [activeCategory, setActiveCategory] = useState<string | null>(null)
     const [activeTag, setActiveTag] = useState<string | null>(null)
     const { toast } = useToast()
-    // Pagination logic
     const POSTS_PER_PAGE = 6
     const [page, setPage] = useState(1)
 
@@ -39,7 +38,6 @@ export default function BlogIndexPage() {
                     }
                 } catch { }
             }
-            // Seed with 3 demo posts (parity with homepage)
             const demoPosts = [
                 {
                     id: "demo-1",
@@ -90,7 +88,6 @@ export default function BlogIndexPage() {
     const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value })
     const handleSubmit = (e: any) => {
         e.preventDefault()
-        // Validation: all fields required
         if (!form.title.trim() || !form.excerpt.trim() || !form.content.trim() || !form.author.trim() || !form.category.trim() || !form.tags.trim()) {
             setError("Please fill in all fields.")
             toast({ title: "Error", description: "Please fill in all fields.", variant: "destructive" })
@@ -98,7 +95,6 @@ export default function BlogIndexPage() {
         }
         setError("")
         if (editId) {
-            // Edit existing post
             const updated = posts.map(post => post.id === editId ? {
                 ...post,
                 ...form,
@@ -111,7 +107,6 @@ export default function BlogIndexPage() {
             toast({ title: "Blog Updated", description: "Your blog post was updated successfully!" })
             setTimeout(() => setShowSuccess(false), 2500)
         } else {
-            // Add new post
             const newPost = {
                 id: Date.now().toString(),
                 title: form.title,
@@ -277,7 +272,7 @@ export default function BlogIndexPage() {
                                         <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{post.excerpt}</p>
                                         <div className="flex items-center justify-between mb-3 text-xs text-muted-foreground">
                                             <span>{post.readTime} min</span>
-                                            <span>{post.views || 0} views · {post.likes || 0} likes</span>
+                                            <span>{post.views || 0} views Â· {post.likes || 0} likes</span>
                                         </div>
                                         <div className="flex gap-2 flex-wrap">
                                             <Link href={`/blog/${post.id}`} className="text-primary hover:underline text-sm font-medium">Read More</Link>

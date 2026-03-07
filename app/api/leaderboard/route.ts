@@ -14,7 +14,6 @@ interface LeaderboardEntry {
   avatar?: string
 }
 
-// Mock leaderboard data
 const leaderboardData: Omit<LeaderboardEntry, "rank">[] = [
   {
     userId: "user001",
@@ -112,7 +111,6 @@ export async function GET(req: NextRequest) {
     const userId = req.nextUrl.searchParams.get("userId")
     const type = req.nextUrl.searchParams.get("type") || "points" // points, missions, quizzes, sustainability
 
-    // Sort based on type
     const sortedData = [...leaderboardData]
     switch (type) {
       case "missions":
@@ -131,16 +129,13 @@ export async function GET(req: NextRequest) {
         sortedData.sort((a, b) => b.points - a.points)
     }
 
-    // Add ranks
     const rankedData: LeaderboardEntry[] = sortedData.map((entry, index) => ({
       ...entry,
       rank: index + 1,
     }))
 
-    // Get top entries
     const topEntries = rankedData.slice(0, limit)
 
-    // If userId is provided, also include user's position if not in top
     let userEntry = null
     if (userId) {
       const userIndex = rankedData.findIndex((entry) => entry.userId === userId)
@@ -172,19 +167,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User ID and points required" }, { status: 400 })
     }
 
-    // Find user and update points
     const userIndex = leaderboardData.findIndex((entry) => entry.userId === userId)
     if (userIndex !== -1) {
       leaderboardData[userIndex].points += points
 
-      // Update other stats based on type
       if (type === "mission") {
         leaderboardData[userIndex].missionsCompleted += 1
       } else if (type === "quiz") {
         leaderboardData[userIndex].quizzesCompleted += 1
       }
 
-      // Recalculate level (simple formula: level = floor(points / 500) + 1)
       leaderboardData[userIndex].level = Math.floor(leaderboardData[userIndex].points / 500) + 1
 
       return NextResponse.json({

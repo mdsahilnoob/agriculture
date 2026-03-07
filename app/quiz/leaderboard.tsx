@@ -1,4 +1,3 @@
-// error here, have to use socket.io
 
 "use client"
 import { useEffect, useState } from "react"
@@ -8,7 +7,6 @@ export default function LeaderboardPage() {
     const [scores, setScores] = useState<any[]>([])
 
     useEffect(() => {
-        // For MVP, use localStorage
         const stored = localStorage.getItem("quizScores")
         if (stored) {
             setScores(JSON.parse(stored))

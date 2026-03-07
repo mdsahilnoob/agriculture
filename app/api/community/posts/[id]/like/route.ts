@@ -1,9 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-// In-memory storage for likes - replace with database in production
 const userLikes: { [userId: string]: number[] } = {}
 
-// Import posts from the main posts route (in production, use database)
 const posts: any = []
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
@@ -11,16 +9,13 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     const postId = Number.parseInt(params.id)
     const userId = "anonymous"
 
-    // Initialize user likes if not exists
     if (!userLikes[userId]) {
       userLikes[userId] = []
     }
 
-    // Find the post (in production, query database)
     interface Post {
       id: number
       likes: number
-      // Add other post properties if needed
     }
 
     const postIndex: number = (posts as Post[]).findIndex((p: Post) => p.id === postId)
@@ -31,11 +26,9 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     const hasLiked = userLikes[userId].includes(postId)
 
     if (hasLiked) {
-      // Unlike the post
       userLikes[userId] = userLikes[userId].filter((id) => id !== postId)
       posts[postIndex].likes = Math.max(0, posts[postIndex].likes - 1)
     } else {
-      // Like the post
       userLikes[userId].push(postId)
       posts[postIndex].likes += 1
     }

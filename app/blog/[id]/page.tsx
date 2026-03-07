@@ -24,7 +24,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const [postsLoaded, setPostsLoaded] = useState(false)
   const [comments, setComments] = useState<any[]>([])
   const [commentText, setCommentText] = useState("")
-  // Load comments for this post from localStorage
   useEffect(() => {
     const stored = localStorage.getItem(`comments-${params.id}`)
     if (stored) {
@@ -35,7 +34,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     }
   }, [params.id])
 
-  // Save comments to localStorage when they change
   useEffect(() => {
     localStorage.setItem(`comments-${params.id}`, JSON.stringify(comments))
   }, [comments, params.id])
@@ -47,9 +45,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     setCommentText("")
   }
 
-  // Persist blogPosts in localStorage
   useEffect(() => {
-    // Load from localStorage if available
     const stored = localStorage.getItem("blogPosts")
     if (stored) {
       try {
@@ -59,7 +55,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         }
       } catch { }
     }
-    // If no posts, add demo post to localStorage
     if (blogPosts.length === 0 && !stored) {
       const demoPost = {
         id: "demo-1",
@@ -79,7 +74,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     }
   }, [blogPosts])
 
-  // Update localStorage on blogPosts change
   useEffect(() => {
     if (blogPosts.length > 0) {
       localStorage.setItem("blogPosts", JSON.stringify(blogPosts))
@@ -93,7 +87,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     if (foundPost) {
       setPost(foundPost)
       incrementBlogViews(foundPost.id)
-      // Find related posts
       const related = blogPosts
         .filter(p => p.id !== foundPost.id && p.category === foundPost.category)
         .slice(0, 3)
@@ -117,7 +110,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         console.log('Error sharing:', error)
       }
     } else {
-      // Fallback: copy to clipboard
       navigator.clipboard.writeText(window.location.href)
     }
   }

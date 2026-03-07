@@ -1,11 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
-// import { Container } from "@/components/container" 
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-// import { recordActivity } from "@/lib/activity" 
 
-// --- START MOCK DEPENDENCIES ---
 const Container = ({ children, className }: { children: React.ReactNode, className?: string }) => (
     <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${className || ''}`}>
         {children}
@@ -14,9 +11,7 @@ const Container = ({ children, className }: { children: React.ReactNode, classNa
 function recordActivity(activity: { type: string, message: string, payload?: any }) {
     console.log(`[ACTIVITY LOG MOCK] ${activity.type}: ${activity.message}`);
 }
-// --- END MOCK DEPENDENCIES ---
 
-// --- MOCK QUIZ DATA ---
 const mockQuizData = [
   {
     id: 1,
@@ -71,8 +66,6 @@ function loadQuizData() {
 
 export default function QuizPage() {
     
-    // 🛑 CRITICAL FIX: Initialize ALL persistent states with server-safe defaults.
-    // The actual values will be loaded in useEffect below.
     const [correctSound, setCorrectSound] = useState<HTMLAudioElement | null>(null)
     const [incorrectSound, setIncorrectSound] = useState<HTMLAudioElement | null>(null)
 
@@ -81,7 +74,6 @@ export default function QuizPage() {
     const [loading, setLoading] = useState(true)
     const [questions, setQuestions] = useState<any[]>([])
     
-    // MUST BE SAFE DEFAULTS (0, null, "", [])
     const [current, setCurrent] = useState(0) 
     const [selected, setSelected] = useState<any>(null)
     const [showFeedback, setShowFeedback] = useState(false)
@@ -99,11 +91,8 @@ export default function QuizPage() {
     const [selectedCategory, setSelectedCategory] = useState<string>("")
     const [categories, setCategories] = useState<string[]>([])
 
-    // 🏆 FIX IMPLEMENTATION: Read localStorage and load Audio ONLY on the client.
     useEffect(() => {
-        // Only run on the client where window/localStorage is defined
         if (typeof window !== 'undefined') {
-            // Load persistent state from localStorage
             setCurrent(Number(localStorage.getItem("quizCurrent") || 0))
             setScore(Number(localStorage.getItem("quizScore") || 0))
             setLevel(localStorage.getItem("quizLevel") || "Beginner")
@@ -117,12 +106,10 @@ export default function QuizPage() {
                 console.error("Error parsing localStorage data:", e)
             }
             
-            // Initialize Audio objects safely on the client
             setCorrectSound(new Audio('/sounds/correct.mp3'))
             setIncorrectSound(new Audio('/sounds/incorrect.mp3'))
         }
 
-        // Load quiz data (runs on first client mount)
         loadQuizData().then(data => {
             setAllQuestions(data)
             const excludedTags = ["beginner", "skilled", "expert", "champion farmer"]
@@ -132,7 +119,6 @@ export default function QuizPage() {
         })
     }, []) 
 
-    // ... (rest of the component logic remains the same)
     
     useEffect(() => {
         if (timer > 0 && !showFeedback && !showLanding) {
@@ -149,7 +135,6 @@ export default function QuizPage() {
     }, [current]);
 
 
-    // Persist progress 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             localStorage.setItem("quizScore", String(score))
@@ -208,7 +193,6 @@ export default function QuizPage() {
                     className="mt-6"
                     disabled={!selectedLevel || !selectedCategory}
                     onClick={() => {
-                        // Filter questions by level and category
                         const filtered = allQuestions.filter(q => q.level === selectedLevel && q.tags.includes(selectedCategory));
                         setQuestions(filtered.length ? filtered : allQuestions.filter(q => q.level === selectedLevel));
                         setLevel(selectedLevel);
@@ -232,7 +216,6 @@ export default function QuizPage() {
     const q = questions[current]
 
     function handleAnswer(idx: any) {
-        // Prevent answering twice
         if (showFeedback && idx !== null) return;
         
         setSelected(idx)
@@ -245,7 +228,6 @@ export default function QuizPage() {
         const isAnswered = idx !== null;
         
         if (isAnswered) {
-            // Check answer logic
             if (Array.isArray(q.answer)) {
                 if (JSON.stringify(idx) === JSON.stringify(q.answer)) {
                     newScore += 10
@@ -254,25 +236,22 @@ export default function QuizPage() {
             } else if (idx === q.answer) {
                 newScore += 10
                 isCorrect = true
-                if (q.tags.includes("water") && !badges.includes("Water Guardian 💧")) newBadges = [...badges, "Water Guardian 💧"]
-                if (q.tags.includes("soil") && !badges.includes("Soil Saver 🌍")) newBadges = [...badges, "Soil Saver 🌍"]
+                if (q.tags.includes("water") && !badges.includes("Water Guardian ðŸ’§")) newBadges = [...badges, "Water Guardian ðŸ’§"]
+                if (q.tags.includes("soil") && !badges.includes("Soil Saver ðŸŒ")) newBadges = [...badges, "Soil Saver ðŸŒ"]
             }
         }
         
         setScore(newScore)
         setBadges(newBadges)
-        // Level progression
         if (newScore >= 30) setLevel("Skilled")
         if (newScore >= 60) setLevel("Expert")
         if (newScore >= 100) setLevel("Champion Farmer")
-        // Play sound and animate
         if (isAnswered) {
              if (isCorrect && correctSound) correctSound.play()
              if (!isCorrect && incorrectSound) incorrectSound.play()
              setAnswerAnim(isCorrect ? "animate-correct" : "animate-incorrect")
              recordActivity({ type: 'quiz:answer', message: `Answered question ${current + 1}/${questions.length} (${isCorrect ? 'correct' : 'incorrect'})`, payload: { correct: isCorrect, newScore } })
         } else {
-            // Log timeout if no answer was given
             recordActivity({ type: 'quiz:timeout', message: `Question ${current + 1}/${questions.length} timed out.` })
         }
         
@@ -292,7 +271,6 @@ export default function QuizPage() {
         setTimer(30)
     }
 
-    // Drag-drop mini-game (simple version)
     function handleDragDrop(toolIdx: number, useIdx: number) {
         const answerArr = questions[current].answer
         const correct = answerArr[toolIdx] === q.options[useIdx].use
@@ -327,9 +305,9 @@ export default function QuizPage() {
             <div className="flex justify-between items-start mb-6">
                 <div>
                     <h2 className="text-xl font-semibold">Question {current + 1} / {questions.length}</h2>
-                    <p className="text-sm text-muted-foreground">Level: {level} • Score: {score}</p>
+                    <p className="text-sm text-muted-foreground">Level: {level} â€¢ Score: {score}</p>
                 </div>
-                <div className={`font-mono text-sm px-3 py-1 rounded ${timer <= 5 ? 'bg-red-100 text-red-700' : 'bg-muted'}`}>⏱ {timer}s</div>
+                <div className={`font-mono text-sm px-3 py-1 rounded ${timer <= 5 ? 'bg-red-100 text-red-700' : 'bg-muted'}`}>â± {timer}s</div>
             </div>
             <div className="mb-4 font-medium text-lg">{q.question}</div>
             {q.type !== 'dragdrop' && (
@@ -407,7 +385,6 @@ export default function QuizPage() {
                             variant="secondary"
                             onClick={() => {
                                 if (userName.trim()) {
-                                    // This logic is still using localStorage for mock persistence
                                     const scores = JSON.parse(localStorage.getItem('quizScores') || '[]')
                                     const updated = [...scores.filter((s: any) => s.name !== userName.trim()), { name: userName.trim(), points: score, level, badges }]
                                     localStorage.setItem('quizScores', JSON.stringify(updated))

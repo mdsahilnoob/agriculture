@@ -1,8 +1,6 @@
-//there is an error here
 import { type NextRequest, NextResponse } from "next/server"
 export const dynamic = 'force-dynamic' // Ensure the route is always dynamic
 
-// Mock user data - in production, this would connect to a database
 const mockUsers = new Map([
   [
     "user123",
@@ -66,7 +64,6 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
-    // Update user data
     const updatedUser = { ...user, ...updates, updatedAt: new Date().toISOString() }
     mockUsers.set(userId || "user123", updatedUser)
 

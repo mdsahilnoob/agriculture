@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-// In-memory storage for comments - replace with database in production
 const comments: { [postId: number]: any[] } = {}
 let nextCommentId = 1
 
@@ -29,7 +28,6 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       return NextResponse.json({ success: false, error: "Comment content is required" }, { status: 400 })
     }
 
-    // Initialize comments array for post if not exists
     if (!comments[postId]) {
       comments[postId] = []
     }

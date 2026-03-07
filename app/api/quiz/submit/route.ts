@@ -27,7 +27,6 @@ interface QuizResult {
   }[]
 }
 
-// Mock quiz data - matches the quiz structure from the frontend
 const quizData = {
   "soil-health-basics": {
     id: "soil-health-basics",
@@ -64,7 +63,6 @@ const quizData = {
   },
 }
 
-// Mock storage for quiz results
 const quizResults = new Map<string, QuizResult[]>()
 
 export async function POST(req: NextRequest) {
@@ -72,13 +70,11 @@ export async function POST(req: NextRequest) {
     const submission: QuizSubmission = await req.json()
     const { quizId, userId, answers, timeSpent, completedAt } = submission
 
-    // Validate quiz exists
     const quiz = quizData[quizId as keyof typeof quizData]
     if (!quiz) {
       return NextResponse.json({ error: "Quiz not found" }, { status: 404 })
     }
 
-    // Calculate results
     let correctAnswers = 0
     let totalCoinsEarned = 0
     const answerDetails = []
@@ -103,13 +99,11 @@ export async function POST(req: NextRequest) {
       })
     }
 
-    // Bonus coins for perfect score
     const isPerfectScore = correctAnswers === quiz.questions.length
     if (isPerfectScore) {
       totalCoinsEarned += Math.floor(totalCoinsEarned * 0.2) // 20% bonus
     }
 
-    // Time bonus (if completed in less than 50% of time limit)
     const timeBonus = timeSpent < 300 ? 25 : timeSpent < 600 ? 10 : 0 // Example time limits
     totalCoinsEarned += timeBonus
 
@@ -128,13 +122,10 @@ export async function POST(req: NextRequest) {
       answers: answerDetails,
     }
 
-    // Store result
     const userResults = quizResults.get(userId) || []
     userResults.push(result)
     quizResults.set(userId, userResults)
 
-    // Update user coins (in production, this would update the database)
-    // For now, we'll return the result and let the frontend handle coin updates
 
     return NextResponse.json({
       success: true,

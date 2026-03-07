@@ -24,7 +24,6 @@ export default function HomePage() {
         }
       } catch { }
     }
-    // If no posts, add 3 demo posts
     const demoPosts = [
       {
         id: "demo-1",
@@ -70,7 +69,6 @@ export default function HomePage() {
     localStorage.setItem("blogPosts", JSON.stringify(demoPosts))
   }, [])
 
-  // Remove modal logic from homepage; blog input will be handled on /blog page
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       {/* Hero Section */}
@@ -442,7 +440,7 @@ export default function HomePage() {
                     <div className="flex items-center gap-3">
                       <Sun className="h-8 w-8 text-yellow-500" />
                       <div>
-                        <div className="text-2xl font-bold">28°C</div>
+                        <div className="text-2xl font-bold">28Â°C</div>
                         <div className="text-sm text-muted-foreground">Partly Cloudy</div>
                       </div>
                     </div>
@@ -454,7 +452,7 @@ export default function HomePage() {
 
                   <div className="bg-green-50 border border-green-200 rounded-lg p-3">
                     <div className="flex items-center gap-2 text-green-800">
-                      <span>🌱</span>
+                      <span>ðŸŒ±</span>
                       <span className="text-sm font-medium">Farming Tip:</span>
                     </div>
                     <p className="text-sm text-green-700 mt-1">
@@ -489,17 +487,17 @@ export default function HomePage() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <div className="text-lg font-bold text-green-600">₹45,000</div>
+                      <div className="text-lg font-bold text-green-600">â‚¹45,000</div>
                       <div className="text-sm text-muted-foreground">Potential Revenue</div>
                     </div>
                     <div className="text-center p-3 bg-blue-50 rounded-lg">
-                      <div className="text-lg font-bold text-blue-600">₹25,000</div>
+                      <div className="text-lg font-bold text-blue-600">â‚¹25,000</div>
                       <div className="text-sm text-muted-foreground">Estimated Cost</div>
                     </div>
                   </div>
 
                   <div className="text-center p-3 bg-primary/10 rounded-lg">
-                    <div className="text-xl font-bold text-primary">₹20,000</div>
+                    <div className="text-xl font-bold text-primary">â‚¹20,000</div>
                     <div className="text-sm text-muted-foreground">Net Profit (44% margin)</div>
                   </div>
 

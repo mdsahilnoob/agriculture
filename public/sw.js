@@ -13,7 +13,6 @@ const urlsToCache = [
   '/offline.html'
 ]
 
-// Install event - cache resources
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -24,23 +23,19 @@ self.addEventListener('install', (event) => {
   )
 })
 
-// Fetch event - serve from cache when offline
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Return cached version or fetch from network
         if (response) {
           return response
         }
         
         return fetch(event.request).then((response) => {
-          // Check if we received a valid response
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response
           }
 
-          // Clone the response
           const responseToCache = response.clone()
 
           caches.open(CACHE_NAME)
@@ -50,7 +45,6 @@ self.addEventListener('fetch', (event) => {
 
           return response
         }).catch(() => {
-          // If both cache and network fail, show offline page
           if (event.request.destination === 'document') {
             return caches.match('/offline.html')
           }
@@ -59,7 +53,6 @@ self.addEventListener('fetch', (event) => {
   )
 })
 
-// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -75,7 +68,6 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// Background sync for offline actions
 self.addEventListener('sync', (event) => {
   if (event.tag === 'background-sync') {
     event.waitUntil(doBackgroundSync())
@@ -83,14 +75,10 @@ self.addEventListener('sync', (event) => {
 })
 
 async function doBackgroundSync() {
-  // Handle offline actions when connection is restored
   console.log('Background sync triggered')
   
-  // You can implement offline action queuing here
-  // For example, sync mission progress, community posts, etc.
 }
 
-// Push notifications
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New update from FarmGrow!',
@@ -120,7 +108,6 @@ self.addEventListener('push', (event) => {
   )
 })
 
-// Notification click handler
 self.addEventListener('notificationclick', (event) => {
   event.notification.close()
 

@@ -14,7 +14,6 @@ export default function AIChatWidget() {
   const closeBtnRef = useRef<HTMLButtonElement | null>(null)
   const openBtnRef = useRef<HTMLButtonElement | null>(null)
 
-  // Return focus to launcher when closing for accessibility
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => closeBtnRef.current?.focus(), 10)
@@ -101,7 +100,7 @@ export default function AIChatWidget() {
           </div>
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             <Coins className="h-3 w-3 text-secondary" />
-            Expert farming advice • Earn coins with missions
+            Expert farming advice â€¢ Earn coins with missions
           </p>
         </CardHeader>
         <CardContent className="space-y-4">

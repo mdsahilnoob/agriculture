@@ -5,7 +5,6 @@ import "./globals.css"
 import AIChatWidget from "@/components/ai-chat-widget"
 import MobileNav from "@/components/mobile-nav"
 import { Container } from "@/components/container"
-// import { ThemeProvider } from "next-themes"
 import { Suspense } from "react"
 import { Toaster } from "@/components/ui/toaster"
 import { Leaf } from "lucide-react"
@@ -39,7 +38,6 @@ export const metadata: Metadata = {
   }
 }
 
-// Move themeColor and viewport to generateViewport export as per Next.js 13+ requirements
 export function generateViewport() {
   return {
     themeColor: '#d97706',
@@ -116,5 +114,4 @@ export default function RootLayout({
 }
 
 
-// Removed duplicated old layout comment after merging functionality above.
 

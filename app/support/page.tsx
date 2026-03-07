@@ -49,7 +49,7 @@ export default function SupportPage() {
     {
       id: "1",
       content:
-        "🌱 Namaste! I'm FarmGrow AI, your farming assistant. I specialize in sustainable agriculture, crop management, pest control, and government schemes. Ask me anything about farming practices!",
+        "ðŸŒ± Namaste! I'm FarmGrow AI, your farming assistant. I specialize in sustainable agriculture, crop management, pest control, and government schemes. Ask me anything about farming practices!",
       sender: "ai"
     },
   ])
@@ -103,7 +103,7 @@ export default function SupportPage() {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         content:
-          "🚨 Sorry, I'm having trouble connecting right now. Please try again later or check your internet connection.",
+          "ðŸš¨ Sorry, I'm having trouble connecting right now. Please try again later or check your internet connection.",
         sender: "ai"
       }
       setMessages((prev) => [...prev, errorMessage])
@@ -144,7 +144,6 @@ export default function SupportPage() {
               <Sparkles className="h-4 w-4 text-blue-400 absolute -top-1 -right-1" />
             </div>
           }
-          // backHref="/"
           actions={
             <Badge className="bg-blue-50 text-blue-600 border border-blue-200 flex items-center gap-1">
               <Coins className="h-3 w-3" />
@@ -197,7 +196,7 @@ export default function SupportPage() {
               </CardTitle>
               <p className="text-xs text-gray-500 flex items-center gap-1">
                 <Coins className="h-3 w-3 text-yellow-500" />
-                Specialized in Indian agriculture • Complete missions to earn coins
+                Specialized in Indian agriculture â€¢ Complete missions to earn coins
               </p>
             </CardHeader>
 
@@ -272,7 +271,7 @@ export default function SupportPage() {
                 </Button>
               </form>
               <p className="text-xs text-gray-500 mt-2 text-center">
-                💡 Ask about sustainable farming, government schemes, or crop management
+                ðŸ’¡ Ask about sustainable farming, government schemes, or crop management
               </p>
             </div>
           </Card>

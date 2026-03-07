@@ -16,7 +16,6 @@ export function FeedbackForm() {
     const [submitted, setSubmitted] = useState(false)
     const [items, setItems] = useState<FeedbackItem[]>([])
 
-    // Removed localStorage usage for SSR compatibility
 
     function onSubmit(e: React.FormEvent) {
         e.preventDefault()

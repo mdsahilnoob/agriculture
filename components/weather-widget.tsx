@@ -26,25 +26,25 @@ const getWeatherAdvice = (condition: string, temperature: number) => {
     return {
       advice: "Good time for planting and soil preparation",
       color: "bg-blue-100 text-blue-800",
-      icon: "🌧️"
+      icon: "ðŸŒ§ï¸"
     }
   } else if (temperature > 35) {
     return {
       advice: "Ensure adequate irrigation and shade",
       color: "bg-orange-100 text-orange-800",
-      icon: "☀️"
+      icon: "â˜€ï¸"
     }
   } else if (temperature < 15) {
     return {
       advice: "Protect sensitive crops from cold",
       color: "bg-blue-100 text-blue-800",
-      icon: "❄️"
+      icon: "â„ï¸"
     }
   } else {
     return {
       advice: "Ideal conditions for most farming activities",
       color: "bg-green-100 text-green-800",
-      icon: "🌱"
+      icon: "ðŸŒ±"
     }
   }
 }
@@ -53,7 +53,6 @@ export default function WeatherWidget() {
   const { weather, setWeather } = useAppStore()
   const [loading, setLoading] = useState(false)
 
-  // Mock weather data - in a real app, this would come from a weather API
   const mockWeatherData = {
     location: "Punjab, India",
     temperature: 28,
@@ -72,7 +71,6 @@ export default function WeatherWidget() {
   useEffect(() => {
     const fetchWeather = async () => {
       setLoading(true)
-      // Simulate API call
       setTimeout(() => {
         setWeather(mockWeatherData)
         setLoading(false)
@@ -123,7 +121,7 @@ export default function WeatherWidget() {
           <div className="flex items-center gap-3">
             {getWeatherIcon(weather.description)}
             <div>
-              <div className="text-2xl font-bold">{weather.temperature}°C</div>
+              <div className="text-2xl font-bold">{weather.temperature}Â°C</div>
               <div className="text-sm text-muted-foreground">{weather.description}</div>
             </div>
           </div>
@@ -161,7 +159,7 @@ export default function WeatherWidget() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-muted-foreground">{day.low}°</span>
+                  <span className="text-muted-foreground">{day.low}Â°</span>
                   <div className="w-12 h-1 bg-muted rounded-full">
                     <div 
                       className="h-full bg-primary rounded-full transition-all duration-300" 
@@ -170,7 +168,7 @@ export default function WeatherWidget() {
                       }}
                     />
                   </div>
-                  <span className="font-medium">{day.high}°</span>
+                  <span className="font-medium">{day.high}Â°</span>
                 </div>
               </div>
             ))}

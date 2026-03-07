@@ -15,7 +15,6 @@ interface MissionProgress {
   }[]
 }
 
-// Mock mission data
 const missions = {
   "mulching-challenge": {
     id: "mulching-challenge",
@@ -44,7 +43,6 @@ const missions = {
   },
 }
 
-// Mock storage for mission progress
 const missionProgress = new Map<string, MissionProgress[]>()
 
 export async function GET(req: NextRequest) {
@@ -92,7 +90,6 @@ export async function POST(req: NextRequest) {
     const userProgress = missionProgress.get(userId) || []
     let currentProgress = userProgress.find((p) => p.missionId === missionId)
 
-    // Initialize progress if not exists
     if (!currentProgress) {
       currentProgress = {
         missionId,
@@ -107,7 +104,6 @@ export async function POST(req: NextRequest) {
       userProgress.push(currentProgress)
     }
 
-    // Handle different actions
     switch (action) {
       case "start":
         currentProgress.status = "in_progress"
@@ -121,11 +117,9 @@ export async function POST(req: NextRequest) {
             step.completed = true
             step.completedAt = new Date().toISOString()
 
-            // Update progress percentage
             const completedSteps = currentProgress.steps.filter((s) => s.completed).length
             currentProgress.progress = Math.round((completedSteps / mission.totalSteps) * 100)
 
-            // Check if mission is completed
             if (completedSteps === mission.totalSteps) {
               currentProgress.status = "completed"
               currentProgress.completedAt = new Date().toISOString()
@@ -148,7 +142,6 @@ export async function POST(req: NextRequest) {
         break
     }
 
-    // Update storage
     missionProgress.set(userId, userProgress)
 
     return NextResponse.json({

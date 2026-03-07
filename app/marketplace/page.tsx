@@ -62,7 +62,6 @@ export default function MarketplacePage() {
     return filtered
   }, [marketplaceItems, searchTerm, selectedCategory, sortBy])
 
-  // reset to page 1 on filter changes
   useEffect(() => {
     setPage(1)
   }, [searchTerm, selectedCategory, sortBy])
@@ -159,7 +158,7 @@ export default function MarketplacePage() {
               <Truck className="h-8 w-8 text-primary mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Free Delivery</h3>
               <p className="text-sm text-muted-foreground">
-                Free shipping on orders above ₹1000
+                Free shipping on orders above â‚¹1000
               </p>
             </CardContent>
           </Card>
@@ -221,11 +220,11 @@ export default function MarketplacePage() {
 
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-xl font-bold text-primary">
-                    ₹{item.price.toLocaleString()}
+                    â‚¹{item.price.toLocaleString()}
                   </span>
                   {item.originalPrice && (
                     <span className="text-sm text-muted-foreground line-through">
-                      ₹{item.originalPrice.toLocaleString()}
+                      â‚¹{item.originalPrice.toLocaleString()}
                     </span>
                   )}
                 </div>

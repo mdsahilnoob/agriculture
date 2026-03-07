@@ -21,12 +21,9 @@ import FeedbackForm from "@/components/feedback-form"
 import { getTodayChallenge, saveChallenge } from "@/lib/dailyChallenge"
 import { recordActivity } from "@/lib/activity"
 
-// Achievements mock (from code base one)
-// Removed duplicate header/navbar block that was disturbing dashboard layout.
 
 export default function DashboardPage() {
   const [openMission, setOpenMission] = useState<any | null>(null);
-  // Back button at the top
   const BackButton = () => (
     <div className="flex items-center mb-4">
       <Link href="/">
@@ -63,7 +60,6 @@ export default function DashboardPage() {
     }
   }, [user, loadMissions, loadBlogPosts, notifications.length, addNotification])
 
-  // Mock user if not authenticated
   const currentUser = user || {
     id: "1",
     name: "Demo Farmer",
@@ -86,12 +82,9 @@ export default function DashboardPage() {
   const recentBlogPosts = blogPosts.slice(0, 3)
   const upcomingMissions = missions.filter(m => !m.isCompleted).slice(0, 3)
 
-  // Example extra stats
   const sustainabilityScore = 78
   const currentStreak = currentUser.streak || 0
-  // Daily Challenge state
   const [dailyChallenge, setDailyChallenge] = useState(() => getTodayChallenge())
-  // Achievements list (static placeholder)
   const achievements: Array<{ name: string; icon: any; earned: boolean; color: string }> = [
     { name: 'Water Guardian', icon: Droplets, earned: true, color: 'text-blue-500' },
     { name: 'Soil Saver', icon: Leaf, earned: true, color: 'text-green-600' },
@@ -135,7 +128,7 @@ export default function DashboardPage() {
             </Avatar>
             <div className="hidden sm:block">
               <p className="text-sm font-medium">{currentUser.name}</p>
-              <p className="text-xs text-muted-foreground">Level {currentUser.level} • {currentUser.xp} XP</p>
+              <p className="text-xs text-muted-foreground">Level {currentUser.level} â€¢ {currentUser.xp} XP</p>
             </div>
           </div>
         </div>
@@ -258,7 +251,7 @@ export default function DashboardPage() {
                         <div className="flex items-center gap-4 mt-2">
                           <Badge variant="secondary">{mission.difficulty}</Badge>
                           <span className="text-sm text-muted-foreground">
-                            {mission.xpReward} XP • {mission.pointsReward} points
+                            {mission.xpReward} XP â€¢ {mission.pointsReward} points
                           </span>
                         </div>
                         <div className="mt-2">
@@ -277,7 +270,7 @@ export default function DashboardPage() {
                           <p className="mb-4 text-muted-foreground">{openMission.description}</p>
                           <div className="mb-4 flex items-center gap-2">
                             <Badge variant="secondary">{openMission.difficulty}</Badge>
-                            <span className="text-sm">{openMission.xpReward} XP • {openMission.pointsReward} points</span>
+                            <span className="text-sm">{openMission.xpReward} XP â€¢ {openMission.pointsReward} points</span>
                           </div>
                           <Progress value={openMission.progress} className="h-2 mb-4" />
                           <Button onClick={() => { setOpenMission(null); /* Optionally mark as complete here */ }} className="w-full">Mark as Complete</Button>
@@ -362,9 +355,9 @@ export default function DashboardPage() {
                       <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
                       <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                         <span>By {post.author}</span>
-                        <span>•</span>
+                        <span>â€¢</span>
                         <span>{post.readTime} min read</span>
-                        <span>•</span>
+                        <span>â€¢</span>
                         <span>{post.views} views</span>
                       </div>
                     </div>
@@ -409,7 +402,7 @@ export default function DashboardPage() {
               <CardContent className="space-y-3">
                 <div className="flex justify-between"><span className="text-sm">Water Saved</span><span className="text-sm font-medium">2,400L</span></div>
                 <div className="flex justify-between"><span className="text-sm">Soil Improved</span><span className="text-sm font-medium">1.5 hectares</span></div>
-                <div className="flex justify-between"><span className="text-sm">CO₂ Reduced</span><span className="text-sm font-medium">450kg</span></div>
+                <div className="flex justify-between"><span className="text-sm">COâ‚‚ Reduced</span><span className="text-sm font-medium">450kg</span></div>
                 <div className="flex justify-between"><span className="text-sm">Farmers Helped</span><span className="text-sm font-medium">8</span></div>
               </CardContent>
             </Card>

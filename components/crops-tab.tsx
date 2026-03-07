@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 
-// Sample data structure
 type CropData = {
   id: string;
   name: string;
@@ -35,7 +34,6 @@ export function CropsTab({
   sortOrder: "asc" | "desc";
   viewType: "table" | "cards";
 }) {
-  // Filter and sort crop data
   const filteredCropData = cropData
     .filter(crop => 
       crop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -84,12 +82,12 @@ export function CropsTab({
         <Card className="p-4">
           <div className="text-sm text-muted-foreground">Average Market Value</div>
           <div className="text-3xl font-bold">
-            ₹{filteredCropData.length > 0 
+            â‚¹{filteredCropData.length > 0 
               ? (filteredCropData.reduce((sum, crop) => sum + crop.marketValue, 0) / filteredCropData.length).toFixed(0)
               : "0"}/kg
           </div>
           <div className="text-sm text-muted-foreground mt-2">
-            Total potential: ₹{filteredCropData.reduce((sum, crop) => sum + crop.yield * 1000 * crop.marketValue, 0).toLocaleString()}
+            Total potential: â‚¹{filteredCropData.reduce((sum, crop) => sum + crop.yield * 1000 * crop.marketValue, 0).toLocaleString()}
           </div>
         </Card>
       </div>
@@ -106,7 +104,7 @@ export function CropsTab({
                   <th className="py-3 px-4 text-left font-medium">Region</th>
                   <th className="py-3 px-4 text-left font-medium">Season</th>
                   <th className="py-3 px-4 text-left font-medium">Yield (t/ha)</th>
-                  <th className="py-3 px-4 text-left font-medium">Market Value (₹/kg)</th>
+                  <th className="py-3 px-4 text-left font-medium">Market Value (â‚¹/kg)</th>
                   <th className="py-3 px-4 text-left font-medium">Water Req.</th>
                   <th className="py-3 px-4 text-left font-medium">Planting</th>
                   <th className="py-3 px-4 text-left font-medium">Harvest</th>
@@ -120,7 +118,7 @@ export function CropsTab({
                     <td className="py-3 px-4">{crop.region}</td>
                     <td className="py-3 px-4">{crop.season}</td>
                     <td className="py-3 px-4">{crop.yield.toFixed(1)}</td>
-                    <td className="py-3 px-4">₹{crop.marketValue}</td>
+                    <td className="py-3 px-4">â‚¹{crop.marketValue}</td>
                     <td className="py-3 px-4">
                       <Badge variant={
                         crop.waterRequirements === "high" ? "destructive" :
@@ -181,7 +179,7 @@ export function CropsTab({
                 </div>
                 <div>
                   <span className="text-muted-foreground">Market Value:</span>
-                  <p className="font-medium">₹{crop.marketValue}/kg</p>
+                  <p className="font-medium">â‚¹{crop.marketValue}/kg</p>
                 </div>
                 <div>
                   <span className="text-muted-foreground">Water:</span>

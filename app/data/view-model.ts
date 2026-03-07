@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-// Types
 export type CropData = {
   id: string;
   name: string;
@@ -46,7 +45,6 @@ export type WeatherData = {
 export type ViewMode = "table" | "cards";
 export type SortOrder = "asc" | "desc";
 
-// Sample data
 export const sampleCropData: CropData[] = [
   {
     id: "c1",
@@ -131,7 +129,6 @@ export function useDataViewModel() {
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
   const [viewType, setViewType] = useState<ViewMode>("table");
 
-  // Filter and sort crop data
   const filteredCropData = sampleCropData
     .filter(crop => 
       crop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -152,7 +149,6 @@ export function useDataViewModel() {
       return 0;
     });
   
-  // Filter and sort soil data
   const filteredSoilData = sampleSoilData
     .filter(soil => 
       soil.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -170,12 +166,10 @@ export function useDataViewModel() {
       return 0;
     });
 
-  // Toggle sort order
   const toggleSortOrder = () => {
     setSortOrder(prev => prev === "asc" ? "desc" : "asc");
   };
 
-  // Clear search query
   const clearSearch = () => {
     setSearchQuery("");
   };

@@ -1,5 +1,4 @@
 "use client"
-//have to fix this page
 import { Container } from "@/components/container"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -32,7 +31,6 @@ import WeatherWidget from "@/components/weather-widget"
 import CropCalculator from "@/components/crop-calculator"
 import NotificationCenter from "@/components/notification-center"
 
-// Achievements data (from code base one)
 const achievements = [
   { name: "Soil Health Champion", icon: Sprout, color: "text-green-600", earned: true },
   { name: "Water Saver", icon: Droplets, color: "text-blue-600", earned: true },
@@ -246,7 +244,7 @@ export default function DashboardPage() {
                         <div className="flex items-center gap-4 mt-2">
                           <Badge variant="secondary">{mission.difficulty}</Badge>
                           <span className="text-sm text-muted-foreground">
-                            {mission.xpReward} XP • {mission.pointsReward} points
+                            {mission.xpReward} XP â€¢ {mission.pointsReward} points
                           </span>
                         </div>
                         <div className="mt-2">
@@ -345,9 +343,9 @@ export default function DashboardPage() {
                         <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
                         <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                           <span>By {post.author}</span>
-                          <span>•</span>
+                          <span>â€¢</span>
                           <span>{post.readTime} min read</span>
-                          <span>•</span>
+                          <span>â€¢</span>
                           <span>{post.views} views</span>
                         </div>
                       </div>
@@ -419,7 +417,7 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Tamil Nadu Banana Farmers</CardTitle>
-                  <CardDescription>234 members • Very Active</CardDescription>
+                  <CardDescription>234 members â€¢ Very Active</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
@@ -449,7 +447,7 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Organic Farming Enthusiasts</CardTitle>
-                  <CardDescription>567 members • Active</CardDescription>
+                  <CardDescription>567 members â€¢ Active</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
@@ -481,7 +479,7 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Water Conservation Network</CardTitle>
-                  <CardDescription>189 members • Growing</CardDescription>
+                  <CardDescription>189 members â€¢ Growing</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
@@ -509,7 +507,7 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Young Farmers Initiative</CardTitle>
-                  <CardDescription>423 members • Very Active</CardDescription>
+                  <CardDescription>423 members â€¢ Very Active</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
@@ -637,7 +635,7 @@ export default function DashboardPage() {
               <CardContent className="space-y-3">
                 <div className="flex justify-between"><span className="text-sm">Water Saved</span><span className="text-sm font-medium">2,400L</span></div>
                 <div className="flex justify-between"><span className="text-sm">Soil Improved</span><span className="text-sm font-medium">1.5 hectares</span></div>
-                <div className="flex justify-between"><span className="text-sm">CO₂ Reduced</span><span className="text-sm font-medium">450kg</span></div>
+                <div className="flex justify-between"><span className="text-sm">COâ‚‚ Reduced</span><span className="text-sm font-medium">450kg</span></div>
                 <div className="flex justify-between"><span className="text-sm">Farmers Helped</span><span className="text-sm font-medium">8</span></div>
               </CardContent>
             </Card>

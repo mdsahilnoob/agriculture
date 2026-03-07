@@ -1,6 +1,5 @@
 "use client"
 
-// Next.js 13+ recommended viewport export
 export function generateViewport() {
   return {
     themeColor: '#ffffff',
@@ -146,7 +145,6 @@ export default function MissionsPage() {
       }
       return m
     }))
-    // Award points if completed
     const mission = missions.find(m => m.id === id)
     if (mission && mission.progress < 100 && mission.progress + stepPoints >= 100) {
       setUserPoints(p => p + mission.rewards)
@@ -157,7 +155,6 @@ export default function MissionsPage() {
       recordActivity({ type: 'mission:progress', message: `Progress updated for mission ${id}` })
     }
   }
-  // Simple recommendation: not completed & not started first
   const recommendations = useMemo(() => missions.filter(m => m.status !== "completed").slice(0, 2), [missions])
 
   const filtered = useMemo(() => {

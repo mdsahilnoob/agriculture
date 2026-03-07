@@ -10,7 +10,6 @@ import {
   SoilHealthChart 
 } from "@/components/data-charts";
 
-// Sample data structure
 type CropData = {
   id: string;
   name: string;
@@ -27,7 +26,6 @@ type CropData = {
   marketValue: number; // per kg/unit
 };
 
-// Sample soil data
 type SoilData = {
   id: string;
   location: string;

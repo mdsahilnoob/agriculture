@@ -33,7 +33,6 @@ export function getTodayChallenge(): DailyChallenge {
             if (parsed.date === today) return parsed
         }
     } catch { /* ignore */ }
-    // generate new
     const base = POOL[Math.floor(Math.random() * POOL.length)]
     const challenge: DailyChallenge = { id: crypto.randomUUID(), date: today, status: 'new', ...base }
     localStorage.setItem(KEY, JSON.stringify(challenge))

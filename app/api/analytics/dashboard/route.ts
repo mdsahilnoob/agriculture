@@ -37,7 +37,6 @@ interface DashboardAnalytics {
   }[]
 }
 
-// Mock analytics data
 const mockAnalytics: DashboardAnalytics = {
   userId: "user123",
   totalCoins: 1250,
@@ -111,11 +110,8 @@ const mockAnalytics: DashboardAnalytics = {
 
 export async function GET(req: NextRequest) {
   try {
-    // const userId = req.nextUrl.searchParams.get("userId") || "user123"
     const timeframe = req.nextUrl.searchParams.get("timeframe") || "week" // week, month, year
 
-    // In production, this would fetch real data from database
-    // For now, return mock data with some variations based on timeframe
 
     const analytics = { ...mockAnalytics }
 
@@ -149,8 +145,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User ID and activity data required" }, { status: 400 })
     }
 
-    // In production, this would log activity to database
-    // For now, just acknowledge the activity
 
     return NextResponse.json({
       success: true,

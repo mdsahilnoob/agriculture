@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* Removed unsupported @custom-variant dark (&:is(.dark *)); */
 
 :root {
   --background: oklch(1 0 0);
@@ -118,9 +117,7 @@
 @layer base {
   * {
     border-color: var(--border);
-    /* Fallback for browsers not supporting color-mix */
     outline-color: rgba(112, 112, 112, 0.5); /* Adjust RGB to match var(--ring) as closely as possible */
-    /* outline-color: color-mix(in oklab, var(--ring) 50%, transparent); */
   }
   body {
     background-color: var(--background);
