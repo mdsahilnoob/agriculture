@@ -1,6 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../../../../auth/[...nextauth]/route"
 
 // In-memory storage for likes - replace with database in production
 const userLikes: { [userId: string]: number[] } = {}
@@ -10,18 +8,8 @@ const posts: any = []
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const session = await getServerSession(authOptions)
-
-    if (!session?.user) {
-      return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 })
-    }
-
     const postId = Number.parseInt(params.id)
-    const userId = session.user.id
-
-    if (!userId) {
-      return NextResponse.json({ success: false, error: "User ID not found" }, { status: 400 })
-    }
+    const userId = "anonymous"
 
     // Initialize user likes if not exists
     if (!userLikes[userId]) {

@@ -1,6 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../../auth/[...nextauth]/route"
 
 // In-memory storage for demo purposes - replace with database in production
 const posts = [ //: any[] was here
@@ -68,12 +66,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
-
-    if (!session?.user) {
-      return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 })
-    }
-
     const body = await request.json()
     const { content, image, location } = body
 
@@ -84,16 +76,16 @@ export async function POST(request: NextRequest) {
     // Create new post
     const newPost = {
       id: nextId++,
-      author: session.user.name || "Anonymous Farmer",
+      author: "Anonymous Farmer",
       location: location || "Unknown Location",
-      avatar: session.user.image || "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder.svg?height=40&width=40",
       time: "Just now",
       content: content.trim(),
       image: image || null,
       likes: 0,
       comments: 0,
-      badge: "New Farmer", // Default badge - could be dynamic based on user achievements
-      userId: (session.user as { id?: string }).id || "unknown-user",
+      badge: "New Farmer",
+      userId: "anonymous",
       createdAt: new Date().toISOString(),
     }
 

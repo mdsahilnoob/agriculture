@@ -3,15 +3,12 @@ import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import AIChatWidget from "@/components/ai-chat-widget"
-import SessionHeader from "@/components/session-header"
 import MobileNav from "@/components/mobile-nav"
 import { Container } from "@/components/container"
 // import { ThemeProvider } from "next-themes"
 import { Suspense } from "react"
 import { Toaster } from "@/components/ui/toaster"
-import SessionProviderWrapper from "@/components/session-provider"
 import { Leaf } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export const metadata: Metadata = {
@@ -62,7 +59,6 @@ export default function RootLayout({
     <html lang="en" className='antialiased'>
       <body className="min-h-screen bg-background text-foreground">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 z-50 bg-primary text-primary-foreground px-3 py-2 rounded">Skip to main</a>
-        <SessionProviderWrapper>
           <header className="w-full bg-background border-b sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/95">
             <Container className="flex items-center justify-between py-4">
               {/* Left: Logo */}
@@ -84,16 +80,9 @@ export default function RootLayout({
                 <Link href="/activity" className="text-foreground hover:text-primary transition-colors">Activity</Link>
                 <Link href="/data" className="text-foreground hover:text-primary transition-colors">Data</Link>
               </nav>
-              {/* Right: User Section & Demo Button */}
+              {/* Right: Mobile Nav */}
               <div className="flex items-center gap-4 min-w-[220px] justify-end">
-                {/* Responsive mobile menu */}
                 <MobileNav />
-                {/* User Section */}
-                <SessionHeader />
-                {/* Always show Try Demo */}
-                <Link href="/signin">
-                  <Button variant="outline">Try Demo</Button>
-                </Link>
               </div>
             </Container>
             {/* Removed secondary mobile nav (duplication) - MobileNav component handles mobile links */}
@@ -107,7 +96,6 @@ export default function RootLayout({
               <Toaster />
             {/* </ThemeProvider> */}
           </Suspense>
-        </SessionProviderWrapper>
         <Analytics />
         <script
           dangerouslySetInnerHTML={{

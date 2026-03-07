@@ -4,10 +4,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Badge } from "@/components/ui/badge"
-import { Menu, Leaf, BookOpen, Users, Trophy, Brain, MessageCircle, HelpCircle, User, Coins, Bell } from "lucide-react"
+import { Menu, Leaf, BookOpen, Users, Trophy, Brain, MessageCircle, HelpCircle, User, Bell } from "lucide-react"
 import Link from "next/link"
-import { useSession } from "next-auth/react"
-import { useDemoSession } from "@/components/session-provider"
 
 interface MobileNavProps {
   currentPath?: string
@@ -15,8 +13,6 @@ interface MobileNavProps {
 
 export default function MobileNav({ currentPath }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const { data: session, status } = useSession()
-  const { user: demoUser, isAuthenticated: isDemoAuthenticated } = useDemoSession()
 
   const navItems = [
     {
@@ -94,18 +90,6 @@ export default function MobileNav({ currentPath }: MobileNavProps) {
 
   const closeNav = () => setIsOpen(false)
 
-  // dont need 
-  if (status === "loading") {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <span>Loading session...</span>
-      </div>
-    )
-  }
-
-  // fix needed here
-  const activeUser = session?.user || (isDemoAuthenticated ? demoUser : null)
-
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
@@ -128,28 +112,6 @@ export default function MobileNav({ currentPath }: MobileNavProps) {
         </SheetHeader>
 
         <div className="p-4">
-          {activeUser && (
-            <div className="mb-6 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-primary/20 rounded-full">
-                  <User className="h-4 w-4 text-primary" />
-                </div>
-                <div>
-                  <p className="font-semibold">{activeUser.name || "User"}</p>
-                  <p className="text-xs text-muted-foreground">
-                    Level {typeof (activeUser as any).level === "number" ? (activeUser as any).level : 1} Farmer
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Coins className="h-4 w-4 text-secondary" />
-                <span className="font-bold text-secondary">
-                  {typeof (activeUser as any).coins === "number" ? (activeUser as any).coins : 0} Coins
-                </span>
-              </div>
-            </div>
-          )}
-
           <nav className="space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon
@@ -180,21 +142,12 @@ export default function MobileNav({ currentPath }: MobileNavProps) {
           </nav>
 
           <div className="mt-6 pt-6 border-t">
-            {!activeUser ? (
-              <Link href="/signin" onClick={closeNav}>
-                <Button variant="outline" className="w-full bg-transparent">
-                  <User className="mr-2 h-4 w-4" />
-                  Sign In
-                </Button>
-              </Link>
-            ) : (
-              <Link href="/dashboard" onClick={closeNav}>
-                <Button variant="outline" className="w-full bg-transparent">
-                  <User className="mr-2 h-4 w-4" />
-                  Dashboard
-                </Button>
-              </Link>
-            )}
+            <Link href="/dashboard" onClick={closeNav}>
+              <Button variant="outline" className="w-full bg-transparent">
+                <User className="mr-2 h-4 w-4" />
+                Dashboard
+              </Button>
+            </Link>
           </div>
         </div>
       </SheetContent>

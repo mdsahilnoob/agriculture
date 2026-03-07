@@ -1,18 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../../../../auth/[...nextauth]/route"
-
-// Extend the session user type to include 'id'
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string
-      name?: string | null
-      email?: string | null
-      image?: string | null
-    }
-  }
-}
 
 // In-memory storage for comments - replace with database in production
 const comments: { [postId: number]: any[] } = {}
@@ -35,12 +21,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const session = await getServerSession(authOptions)
-
-    if (!session?.user) {
-      return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 })
-    }
-
     const postId = Number.parseInt(params.id)
     const body = await request.json()
     const { content } = body
@@ -56,11 +36,11 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 
     const newComment = {
       id: nextCommentId++,
-      author: session.user.name || "Anonymous Farmer",
-      avatar: session.user.image || "/placeholder.svg?height=40&width=40",
+      author: "Anonymous Farmer",
+      avatar: "/placeholder.svg?height=40&width=40",
       content: content.trim(),
       createdAt: new Date().toISOString(),
-      userId: session.user.id,
+      userId: "anonymous",
     }
 
     comments[postId].push(newComment)
